@@ -1,75 +1,142 @@
-bool isWin(char game[3][3]){
+#include<iostream> 
 
-bool win = false;
+using namespace std; 
 
-if (game[0][0] == game[0][1] && game[0][1] == game[0][2] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true;
-if (game[1][0] == game[1][1] && game[1][1] == game[1][2] && (game[1][0] == 'X' || game[1][0] == 'O')) win = true;
-if (game[2][0] == game[2][1] && game[2][1] == game[2][2] && (game[2][0] == 'X' || game[2][0] == 'O')) win = true;
-// column
+char game[3][3] = {' '}; // Tic-tac-toe 
 
-if (game[0][0] == game[1][0] && game[1][0] == game[2][0] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true;
-if (game[0][1] == game[1][1] && game[1][1] == game[2][1] && (game[0][1] == 'X' || game[0][1] == 'O')) win = true;
-if (game[0][2] == game[1][2] && game[1][2] == game[2][2] && (game[0][2] == 'X' || game[0][2] == 'O')) win = true;
-// diagonal
+bool isWin(){ 
 
-if (game[0][0] == game[1][1] && game[1][1] == game[2][2] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true;
-if (game[0][2] == game[1][1] && game[1][1] == game[2][0] && (game[0][2] == 'X' || game[0][2] == 'O')) win = true;
-return win;
+bool win = false; 
 
-}
+if (game[0][0] == game[0][1] && game[0][1] == game[0][2] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true; 
 
-int main(){
+if (game[1][0] == game[1][1] && game[1][1] == game[1][2] && (game[1][0] == 'X' || game[1][0] == 'O')) win = true; 
 
-int i, j;
+if (game[2][0] == game[2][1] && game[2][1] == game[2][2] && (game[2][0] == 'X' || game[2][0] == 'O')) win = true; 
 
-char game[3][3] = {' '}; // Tic-tac-toe
+// column 
 
-char player1 = 'X';
+if (game[0][0] == game[1][0] && game[1][0] == game[2][0] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true; 
 
-char player2 = 'O';
+if (game[0][1] == game[1][1] && game[1][1] == game[2][1] && (game[0][1] == 'X' || game[0][1] == 'O')) win = true; 
 
-bool turn = true; // false for player 1's turn, true for player 2's turn. Player 1 first.
+if (game[0][2] == game[1][2] && game[1][2] == game[2][2] && (game[0][2] == 'X' || game[0][2] == 'O')) win = true; 
 
-cout << "X = Player 1" << endl << "O = Player 2" << endl;
+// diagonal 
 
-for (int n=0; n<9; n++){
+if (game[0][0] == game[1][1] && game[1][1] == game[2][2] && (game[0][0] == 'X' || game[0][0] == 'O')) win = true; 
 
-turn = !turn;	// use the not-operator to change true to false or false to true.
+if (game[0][2] == game[1][1] && game[1][1] == game[2][0] && (game[0][2] == 'X' || game[0][2] == 'O')) win = true; 
 
-if (turn == false)
+return win; 
 
-cout << "Player 1: ";
+} 
 
-Else
+  
 
-cout << "Player 2: ";
+char getInput(bool turn){ 
 
-cout << "Which cell to mark? i:[1..3], j:[1..3]: ";
+    int r,c; 
 
-cin >> i >> j;
+    while(cin >> r >> c){ 
 
-if (turn == false)
+    if( r>3||c>3||r<=0||c<=0){ 
 
-game[i][j] = 'X';
+        cout<<"Your input is illegal,input a new numebr again with range i={1,2,3} and j={1,2,3}"<<endl; 
 
-else
+    } 
 
-game[i][j] = 'O';
+    else{ 
 
-if (isWin(game)){
+        if(game[r-1][c-1]!=' '){ 
 
-cout << "Win!" << endl;
+            cout<<"The place you want to take has already been taken, choose another one"<<endl; 
 
-break; // need to terminate the problem
+        } 
 
-}
+        else{ 
 
-}
+            if (turn == false) 
 
-if (i==3) // all celles with i=0 to 2 have been inputted above but no winner yet cout << "Tie!" << endl;
+             //game[i][j] = 'X';//bug 
 
-// show the game to console
+                 game[r-1][c-1]='X'; 
 
-cout << game[0][0] << " " << game[0][1] << " " << game[0][2] << endl; cout << game[1][0] << " " << game[1][1] << " " << game[1][2] << endl; cout << game[2][0] << " " << game[2][1] << " " << game[2][2] << endl; return 0;
+             else 
 
-}
+             //game[i][j] = 'O';//bug 
+
+                 game[r-1][c-1]='O'; 
+
+            break; 
+
+        } 
+
+  
+
+    } 
+
+} 
+
+} 
+
+  
+
+  
+
+int main(){ 
+
+  
+
+char player1 = 'X'; 
+
+char player2 = 'O'; 
+
+bool turn = true; // false for player 1's turn, true for player 2's turn. Player 1 first. 
+
+cout << "X = Player 1" << endl << "O = Player 2" << endl; 
+
+int n=0; 
+
+for (n=0; n<9; n++){ 
+
+turn = !turn;  // use the not-operator to change true to false or false to true. 
+
+if (turn == false) 
+
+cout << "Player 1: "; 
+
+else{ 
+
+cout << "Player 2: "; 
+
+} 
+
+cout << "Which cell to mark? i:[1..3], j:[1..3]: ";//bug 
+
+getInput(turn); 
+
+if (isWin()){ 
+
+cout << "Win!" << endl; 
+
+break; 
+
+} 
+
+else if(n=8){ 
+
+    cout<<"Tie!"<<endl; 
+
+} 
+
+// need to terminate the problem 
+
+} 
+
+  
+
+return 0; 
+
+
+} 
